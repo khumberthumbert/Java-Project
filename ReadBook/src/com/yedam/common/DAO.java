@@ -1,12 +1,10 @@
 package com.yedam.common;
 
-import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Properties;
 
 public class DAO {
 	//DAO -> Data Access Object
@@ -29,15 +27,16 @@ public class DAO {
 	protected Statement stmt = null;
 	
 	//DB 접속 정보
-	Properties pro = new Properties();
-	String driver = ""; 
-	String url = "";
-	String id = "";
-	String pw = "";
+	String driver = "oracle.jdbc.driver.OracleDriver"; //연결할 때 어떠한 드라이버를 활용해서 연결하겠는가?
+	
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";//@뒤부터 중요한 내용.
+	//localhost : 내 IP = 127.0.0.1. 접속할 IP
+	//1521: 내가 접속할 PORT
+	String id = "hr";
+	String pw = "hr";
 	
 	//DB 연결
 	public void conn() {
-		getProperties();
 		try {
 			//1. 드라이버 로딩
 			Class.forName(driver);
@@ -47,9 +46,7 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-	
 	//DB 연결 해제
-	
 	public void disconn() {
 		try {
 			//결과 조회 하는 객체
@@ -71,22 +68,5 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-	
-	//DB 접속 정보 호출 메소드
-	private void getProperties() {
-		try {
-			FileReader resource = new FileReader("src/config/db.properties");
-			pro.load(resource);
-			
-			driver = pro.getProperty("driver");
-			url = pro.getProperty("url");
-			id = pro.getProperty("id");
-			pw = pro.getProperty("pw");
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 }
+
