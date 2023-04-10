@@ -32,8 +32,8 @@ public class DAO {
 	String url = "jdbc:oracle:thin:@localhost:1521:xe";//@뒤부터 중요한 내용.
 	//localhost : 내 IP = 127.0.0.1. 접속할 IP
 	//1521: 내가 접속할 PORT
-	String id = "hr";
-	String pw = "hr";
+	String id = "JavaProject";
+	String pw = "1234";
 	
 	//DB 연결
 	public void conn() {

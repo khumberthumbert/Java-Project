@@ -1,27 +1,26 @@
 package readers;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
-
-@Getter
-@Setter
 public class ReaderDTO {
-
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getPw() {
-		return pw;
-	}
-	public void setPw(String pw) {
-		this.pw = pw;
-	}
+	
+//	id VARCHAR2(12),
+//	pw VARCHAR2(12),
+//	info VARCHAR2(2000),
+//	love varchar2(100),
+//	sentece varchar2(2000),
+//	author varchar2(30),
+//	company varchar2(30));
 	private String id;
 	private String pw;
+	private String name;
+	private String info;
+	private String love;
+	private String sentence;
+	private String author;
+	private String company;
+	//private String bookName;
+	
+	
 }
