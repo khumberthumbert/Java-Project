@@ -1,6 +1,5 @@
 package readers;
 
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +35,7 @@ public class ReaderDAO extends DAO{
 				reader.setId(rs.getString("id"));
 				reader.setPw(rs.getString("pw"));
 				reader.setName(rs.getString("name"));
+				reader.setGrade(rs.getString("grade"));
 			}
 		}catch(Exception e)	{
 			e.printStackTrace();
@@ -44,21 +44,6 @@ public class ReaderDAO extends DAO{
 		}
 		return reader;
 	}
-	/*
-	 * // 1. 회원 조회 public List<ReaderDTO> getReaderList(){ List<ReaderDTO> list =
-	 * new ArrayList<>(); ReaderDTO reader = null; try { conn(); String sql =
-	 * "SELECT * FROM reader" + " WHERE id = ?"; pstmt = conn.prepareStatement(sql);
-	 * 
-	 * rs = pstmt.executeQuery();
-	 * 
-	 * while(rs.next()) { reader = new ReaderDTO();
-	 * reader.setId(rs.getString("id")); reader.setPw(rs.getString("pw"));
-	 * reader.setName(rs.getString("name"));
-	 * 
-	 * list.add(reader); } }catch(Exception e) { e.printStackTrace(); }finally {
-	 * disconn(); } return list; }
-	 */
-	
 	//1. 전체조회
 	public List<ReaderDTO>	getReaderList() {
 		List<ReaderDTO> list = new ArrayList<>();
@@ -75,6 +60,7 @@ public class ReaderDAO extends DAO{
 				reader.setId(rs.getString("id"));
 				reader.setPw(rs.getString("pw"));
 				reader.setName(rs.getString("name"));
+				reader.setGrade(rs.getString("grade"));
 				list.add(reader);
 			}
 		}catch(Exception e) {
@@ -90,12 +76,13 @@ public class ReaderDAO extends DAO{
 		int result = 0;
 		try {
 			conn();
-			String sql = "insert into reader (id, pw, name) values(?,?,?)";
+			String sql = "insert into reader (id, pw, name, grade) values(?,?,?,'독린이')";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, reader.getId());
 			pstmt.setString(2, reader.getPw());
 			pstmt.setString(3, reader.getName());
+			//pstmt.setString(4, reader.getGrade());
 			
 			result = pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -116,72 +103,12 @@ public class ReaderDAO extends DAO{
 			result = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}finally {
 			disconn();
 		}
 		return result;
 	}
-	//4. 정보입력
-	//4.1 좋아하는 책
-//	public int loveUpdate(ReaderDTO reader) {
-//		int result = 0;
-//		try {
-//			conn();
-//			String sql = "update reader set love = ?";
-//			pstmt.setString(1, reader.getLove());
-//			result = pstmt.executeUpdate();
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}finally {
-//			disconn();
-//		}
-//		return result;
-//	}
-//	//4.2 좋아하는 문장
-//	public int sentenceUpdate(ReaderDTO reader) {
-//		int result = 0;
-//		try {
-//			conn();
-//			String sql = "update reader set sentence = ?";
-//			pstmt.setString(1, reader.getSentence());
-//			result = pstmt.executeUpdate();
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}finally {
-//			disconn();
-//		}
-//		return result;
-//	}
-//	//4.3 좋아하는 작가
-//	public int authorUpdate(ReaderDTO reader) {
-//		int result = 0;
-//		try {
-//			conn();
-//			String sql = "update reader set author = ?";
-//			pstmt.setString(1, reader.getAuthor());
-//			result = pstmt.executeUpdate();
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}finally {
-//			disconn();
-//		}
-//		return result;
-//	}
-//	//4.4 좋아하는 출판사
-//	public int companyUpdate(ReaderDTO reader) {
-//		int result = 0;
-//		try {
-//			conn();
-//			String sql = "update reader set company = ?";
-//			pstmt.setString(1, reader.getCompany());
-//			result = pstmt.executeUpdate();
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}finally {
-//			disconn();
-//		}
-//		return result;
-//	}
 	//수정
 	public int updateReader(String shift, int num) {
 		int result = 0;
@@ -207,16 +134,53 @@ public class ReaderDAO extends DAO{
 				String sql = "update reader set company = ? where id = ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, shift);
+			} else if(num ==6) {
+				String sql = "update reader set grade = ? where id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, shift);
 			}
 			pstmt.setString(2, ReaderService.readerInfo.getId());
 			result = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}finally {
 			disconn();
 		}
 		return result;
 	}//update, delete, insert 는 int 반환.
+	//내 정보 보기
+	public ReaderDTO getReader() {
+		ReaderDTO reader = null;
+		try {
+			conn();
+			String sql = "SELECT id, pw, name, grade, love, sentence, author, company\r\n"
+					+ " FROM reader"
+					+ " where id = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ReaderService.readerInfo.getId());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				reader = new ReaderDTO();
+				reader.setId(rs.getString("id"));
+				reader.setPw(rs.getString("pw"));
+				reader.setName(rs.getString("name"));
+				reader.setGrade(rs.getString("grade"));
+				reader.setLove(rs.getString("love"));
+				reader.setSentence(rs.getString("sentence"));
+				reader.setAuthor(rs.getString("author"));
+				reader.setCompany(rs.getString("company"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconn();
+		}
+		return reader;
+		
+	}
 	
 	//99. 회원 삭제
 	public int readerDelete(String id) {
@@ -234,30 +198,4 @@ public class ReaderDAO extends DAO{
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
