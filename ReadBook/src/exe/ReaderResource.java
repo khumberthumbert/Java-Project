@@ -75,13 +75,31 @@ public class ReaderResource {
 	private void boardScreen() {
 		while(true) {
 			bs.getBoardList();
-			System.out.println("1. 글 조회 2. 글 작성| 99. 나가기 ");
+			System.out.println("1. 글 조회  |  2. 글 작성  |  3. 글 삭제  |  99. 나가기 ");
 			int number = Integer.parseInt(sc.nextLine());
 			if(number ==1) {
-				bs.getBoard();
+				deepBoardScreen();
 			}else if(number ==2) {
 				bs.boardInsert();
+			}else if(number ==3) {
+				//글 삭제 기능 (본인만 삭제 가능하게(관리자는 다 삭제 가능) , 삭제시 글 번호 삭제된 번호보다 큰 번호들은 1씩 내려주기 ex) 3번 삭제시 -> 12 456  -> 12 345 만들어주기)
 			}else if (number ==99){
+				break;
+			}
+		}
+	}
+	
+	private void deepBoardScreen() {
+		while(true) {
+			bs.getBoard();
+			System.out.println(" 1. 댓글 작성  |  2. 댓글 삭제 |  3. 나가기");
+			System.out.println("입력 >");
+			int no = Integer.parseInt(sc.nextLine());
+			if(no == 1) {
+				//댓글작성기능
+			}else if(no ==2) {
+				//댓글 삭제 기능 ( 본인것만 삭제가능 ( 관리자는 그냥 가능) , 번호 갱신)
+			}else if(no ==3) {
 				break;
 			}
 		}

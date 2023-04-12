@@ -26,6 +26,8 @@ public class BoardService {
 		System.out.printf("작성자 : %s\n", list.getName());
 		System.out.println("--------------------------------------");
 		System.out.printf("%s\n", list.getContent());
+		System.out.println();
+		System.out.println("--------------------------------------");
 	}
 	public void boardInsert() {
 		System.out.println("제목을 입력하세요>");

@@ -26,7 +26,6 @@ public class BoardDAO extends DAO {
 			String sql = "SELECT * FROM board order By board_number DESC";
 			pstmt =conn.prepareStatement(sql);
 			
-			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				boardDto = new BoardDTO();
 				boardDto.setNumber(rs.getInt("board_number"));
