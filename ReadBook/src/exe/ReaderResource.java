@@ -3,12 +3,14 @@ package exe;
 import java.util.Scanner;
 
 import board.BoardService;
+import comments.CommentsService;
 import readers.ReaderService;
  
 public class ReaderResource {
 	int menu = 0;
 	ReaderService rs = new ReaderService();
 	BoardService bs = new BoardService();
+	CommentsService cs = new CommentsService();
 	Scanner sc = new Scanner(System.in);
 	
 	public ReaderResource() {
@@ -39,17 +41,13 @@ public class ReaderResource {
 				menu = Integer.parseInt(sc.nextLine());
 				if(menu == 1) {
 					rs.getReaderList();
-				}
-				else if(menu ==2) {
+				}else if(menu ==2) {
 					rs.updateReader();					
-				}
-				else if(menu == 3) {
+				}else if(menu == 3) {
 					rs.readerAdd();					
-				}
-				else if(menu == 4) {
+				}else if(menu == 4) {
 					rs.readerDelete();					
-				}
-				else if(menu == 99) {
+				}else if(menu == 99) {
 					rs.logout();
 					break;				
 				}			
@@ -60,7 +58,7 @@ public class ReaderResource {
 			if(menu == 1) {
 				rs.updateReader();
 			}else if(menu == 2){
-				rs.myInfo(); //내 정보보기 만들어야함.
+				rs.myInfo();
 			}else if(menu == 3) {
 				boardScreen();
 			}else if(menu == 99) {
@@ -82,6 +80,7 @@ public class ReaderResource {
 			}else if(number ==2) {
 				bs.boardInsert();
 			}else if(number ==3) {
+				bs.boardDelete();
 				//글 삭제 기능 (본인만 삭제 가능하게(관리자는 다 삭제 가능) , 삭제시 글 번호 삭제된 번호보다 큰 번호들은 1씩 내려주기 ex) 3번 삭제시 -> 12 456  -> 12 345 만들어주기)
 			}else if (number ==99){
 				break;
@@ -90,35 +89,24 @@ public class ReaderResource {
 	}
 	
 	private void deepBoardScreen() {
-		while(true) {
+			while(true) {
 			bs.getBoard();
+			cs.getCommentsList();
 			System.out.println(" 1. 댓글 작성  |  2. 댓글 삭제 |  3. 나가기");
 			System.out.println("입력 >");
 			int no = Integer.parseInt(sc.nextLine());
 			if(no == 1) {
 				//댓글작성기능
+				cs.commentsList();
 			}else if(no ==2) {
 				//댓글 삭제 기능 ( 본인것만 삭제가능 ( 관리자는 그냥 가능) , 번호 갱신)
+				cs.commentsDelete();
 			}else if(no ==3) {
+				BoardService.currentBoard =null;
 				break;
 			}
 		}
 	}
 }
-	
-//	private void menu() {
-//		System.out.println("1. 로그인 | 2. 회원가입 | 3. 종료");
-//		System.out.println("메뉴>");
-//		menu = Integer.parseInt(sc.nextLine());
-//		if(menu ==1) {
-//			login();
-//		}else if(menu ==2){
-//			//회원가입 칸
-//		}
-//		else if(menu ==3) {
-//			System.out.println("종료");
-//			boolean run = false;
-//		}
-//	}
 		
 	

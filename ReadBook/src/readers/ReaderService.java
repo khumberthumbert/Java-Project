@@ -34,9 +34,9 @@ public class ReaderService {
 		List<ReaderDTO> list = ReaderDAO.getInstance().getReaderList();
 		
 		for(ReaderDTO reader : list) {
-			System.out.println("=============================================================");
+			System.out.println("=====================================================================================================");
 			System.out.println("ID : " + reader.getId() + "\tPW : " + reader.getPw() + "\t닉네임 :" + reader.getName() + "\t등급 : " + reader.getGrade());
-			System.out.println("=============================================================");
+			System.out.println("=====================================================================================================");
 			
 		}
 	}
@@ -102,7 +102,7 @@ public class ReaderService {
 		String shift = sc.nextLine();
 		int result = ReaderDAO.getInstance().updateReader(shift, num);
 		if(result > 0) {
-			System.out.println("변경 성공, 나가시겠습니까? [네, 아니요]");
+			System.out.println("변경 성공");
 		} else {
 			System.out.println("변경 실패");
 		}	
@@ -110,12 +110,16 @@ public class ReaderService {
 	//내 정보 보기
 	public void myInfo() {
 		ReaderDTO reader = ReaderDAO.getInstance().getReader();
-		System.out.println(reader.getPw());
-		System.out.println(reader.getLove());
-		System.out.println(reader.getSentence());
-		System.out.println(reader.getAuthor());
-		System.out.println(reader.getCompany());
-		System.out.println(reader.getGrade());
+		System.out.println("나의 아이디 : " + reader.getId());
+		System.out.println("나의 닉네임 : " + reader.getName());
+		System.out.println("나의 비밀번호 : " + reader.getPw());
+		System.out.println("좋아하는 책 : " + reader.getLove());
+		System.out.println("좋아하는 문장 : " + reader.getSentence());
+		System.out.println("좋아하는 작가 : " + reader.getAuthor());
+		System.out.println("좋아하는 출판사 : " + reader.getCompany());
+		System.out.println("당신의 등급 : " + reader.getGrade());
+		
+		//null값이 안나오게 하고 싶음.
 	}
 	//읽고 싶은 책
 	public void wantBook() {

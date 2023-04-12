@@ -45,7 +45,7 @@ public class ReaderDAO extends DAO{
 		return reader;
 	}
 	//1. 전체조회
-	public List<ReaderDTO>	getReaderList() {
+	public List<ReaderDTO> getReaderList() {
 		List<ReaderDTO> list = new ArrayList<>();
 		ReaderDTO reader = null;
 		try {
@@ -138,6 +138,10 @@ public class ReaderDAO extends DAO{
 				String sql = "update reader set grade = ? where id = ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, shift);
+			} else if(num ==7) {
+				String sql = "update reader set grade = ? where id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, shift);
 			}
 			pstmt.setString(2, ReaderService.readerInfo.getId());
 			result = pstmt.executeUpdate();
@@ -179,9 +183,7 @@ public class ReaderDAO extends DAO{
 			disconn();
 		}
 		return reader;
-		
 	}
-	
 	//99. 회원 삭제
 	public int readerDelete(String id) {
 		int result = 0;

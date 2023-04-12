@@ -23,9 +23,9 @@ public class BoardDAO extends DAO {
 		BoardDTO boardDto = null;
 		try {
 			conn();
-			String sql = "SELECT * FROM board order By board_number DESC";
+			String sql = "SELECT * FROM board order By board_number";
 			pstmt =conn.prepareStatement(sql);
-			
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				boardDto = new BoardDTO();
 				boardDto.setNumber(rs.getInt("board_number"));
@@ -34,7 +34,6 @@ public class BoardDAO extends DAO {
 				boardDto.setDate(rs.getDate("board_date"));
 				boardDto.setView(rs.getInt("board_view"));
 				boardDto.setName(rs.getString("name"));
-				
 				
 				list.add(boardDto);
 			}
@@ -52,7 +51,7 @@ public class BoardDAO extends DAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			
-			rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery(); //이거
 			if(rs.next()) {
 				boardDto = new BoardDTO();
 				boardDto.setNumber(rs.getInt("board_number"));
@@ -86,5 +85,26 @@ public class BoardDAO extends DAO {
 		}finally{
 			disconn();
 		}return result;
+	}
+	public int boardDelete(int number) {
+		int result = 0;
+		try {
+			conn();
+			String sql = "delete from board where board_number =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, number);
+			result = pstmt.executeUpdate();
+			if(result > 0) {
+				String sql2 = "update board set board_number = board_number -1 where board_number > ?";
+				pstmt =conn.prepareStatement(sql2);
+				pstmt.setInt(1, number);
+				pstmt.executeUpdate();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconn();
+		}
+		return result;
 	}
 }
