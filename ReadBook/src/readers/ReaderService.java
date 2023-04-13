@@ -98,6 +98,26 @@ public class ReaderService {
 			}
 		}
 	}
+	public void updateReader2() {
+		while(true) {
+			System.out.println("변경할 곳의 번호를 입력해주세요>");
+			System.out.println("1. 비밀번호 | 2. 좋아하는 책 | 3. 좋아하는 문장 | 4. 좋아하는 작가 | 5. 선호하는 출판사 | 99. 나가기");
+			int num = Integer.parseInt(sc.nextLine());
+			if(num == 1) {
+				clean(num);
+			} else if (num ==2) {
+				clean(num);
+			} else if (num ==3) {
+				clean(num);
+			}else if (num ==4) {
+				clean(num);
+			}else if (num ==5) {
+				clean(num);
+			}else if (num ==99) {
+				break;
+			}
+		}
+	}
 	private void clean(int num) {
 		System.out.println("변경할 내용");
 		String shift = sc.nextLine();

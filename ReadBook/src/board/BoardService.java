@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import readers.ReaderDAO;
 import readers.ReaderService;
-import sun.jvm.hotspot.debugger.bsd.amd64.BsdAMD64CFrame;
 
 public class BoardService {
 	public static BoardDTO currentBoard = null;
@@ -16,7 +15,7 @@ public class BoardService {
 		//리스트를 받으려고 list변수를 만들었고 BoardDAO안에 static 메서드 이기 떄문에 클래스이름.getInstance()만 하면 되는데 왜 이걸 해야하냐면
 		//싱글톤은 private라서 들고 올 수 없기 때문에 한다. 그리고 뒤에 우리가 만든 메서드 호출한다.
 		for(BoardDTO b : list) {
-			System.out.println(b.getNumber()+ "\t" + b.getName() + "\t"+ b.getTitle()+ "\t" + b.getDate());
+			System.out.println(b.getNumber()+ "\t" + b.getName() + "\t\t"+ b.getTitle()+ "\t\t" + b.getDate());
 		}
 	}
 	public void getBoard() {
@@ -33,13 +32,13 @@ public class BoardService {
 		System.out.println();
 		System.out.println("------------------------------------------------------------------------------------");
 		}else {
-			System.out.println("---------------------------------------");
+			System.out.println("------------------------------------------------------------------------------------");
 			System.out.printf("글 번호 %d %s %s\n",BoardService.currentBoard.getNumber(),BoardService.currentBoard.getTitle(),BoardService.currentBoard.getDate());
 			System.out.printf("작성자 : %s\n", BoardService.currentBoard.getName());
 			System.out.println("--------------------------------------");
 			System.out.printf("%s\n", BoardService.currentBoard.getContent());
 			System.out.println();
-			System.out.println("--------------------------------------");
+			System.out.println("------------------------------------------------------------------------------------");
 		}
 	}
 	public void boardInsert() {

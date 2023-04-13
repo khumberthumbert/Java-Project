@@ -66,7 +66,7 @@ public class ReaderResource {
 					String menu2 = "";
 					menu2 = sc.nextLine();
 					if(menu2.equals("1")) {
-						rs.updateReader();
+						rs.updateReader2();
 					}else if(menu2.equals("2")){
 						rs.myInfo();
 					}else if(menu2.equals("3")) {
