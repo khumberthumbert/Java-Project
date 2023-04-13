@@ -138,10 +138,6 @@ public class ReaderDAO extends DAO{
 				String sql = "update reader set grade = ? where id = ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, shift);
-			} else if(num ==7) {
-				String sql = "update reader set grade = ? where id = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, shift);
 			}
 			pstmt.setString(2, ReaderService.readerInfo.getId());
 			result = pstmt.executeUpdate();

@@ -59,11 +59,14 @@ public class ReaderService {
 		String pw = sc.nextLine();
 		System.out.println("닉네임을 입력하세요>");
 		String name = sc.nextLine();
+//		System.out.println("등급을 지정해주세요.");
+//		String grade = sc.nextLine();
 		
 		ReaderDTO reader = new ReaderDTO();
 		reader.setId(id);
 		reader.setPw(pw);
 		reader.setName(name);
+		//reader.setGrade(grade);
 		
 		int result = ReaderDAO.getInstance().readerAdd(reader);
 		if(result >0) {
@@ -76,7 +79,7 @@ public class ReaderService {
 	public void updateReader() {
 		while(true) {
 			System.out.println("변경할 곳의 번호를 입력해주세요>");
-			System.out.println("1. 비밀번호 | 2. 좋아하는 책 | 3. 문장 | 4. 작가 | 5. 출판사 | 6. 등급 | 7. 읽고 싶은 책 | 99. 나가기");
+			System.out.println("1. 비밀번호 | 2. 좋아하는 책 | 3. 좋아하는 문장 | 4. 좋아하는 작가 | 5. 선호하는 출판사 | 6. 당신의 등급 | 99. 나가기");
 			int num = Integer.parseInt(sc.nextLine());
 			if(num == 1) {
 				clean(num);
@@ -89,8 +92,6 @@ public class ReaderService {
 			}else if (num ==5) {
 				clean(num);
 			}else if (num ==6)	{
-				clean(num);
-			}else if (num == 7)	{
 				clean(num);
 			}else if (num ==99) {
 				break;
@@ -120,13 +121,6 @@ public class ReaderService {
 		System.out.println("당신의 등급 : " + reader.getGrade());
 		
 		//null값이 안나오게 하고 싶음.
-	}
-	//읽고 싶은 책
-	public void wantBook() {
-		System.out.println("책 이름>");
-		String book = sc.nextLine();
-		System.out.println("저자 이름>");
-		String author = sc.nextLine();
 	}
 	//회원 삭제
 	public void readerDelete() {
