@@ -86,6 +86,23 @@ public class BoardDAO extends DAO {
 			disconn();
 		}return result;
 	}
+	public int boardUpdate(int number) {
+		int result = 0;
+		try {
+			conn();
+			
+			String sql = "Update board set content where board_number = ?";
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, number);
+			//pstmt.setInt(2, number);
+			pstmt.executeUpdate();
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}finally {
+			disconn();
+		}return result;
+	}
 	public int boardDelete(int number) {
 		int result = 0;
 		try {

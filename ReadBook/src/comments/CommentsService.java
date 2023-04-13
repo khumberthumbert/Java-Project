@@ -14,8 +14,10 @@ public class CommentsService {
 		List<CommentsDTO> list = CommentsDAO.getInstance().getCommentsList();
 		
 		for(CommentsDTO c : list) {
-			System.out.println(c.getNum() +"\t"+ c.getName() + " : " + c.getContents() + "\t" + c.getDate());
+			System.out.println("------------------------------------------------------------------------------------");
+			System.out.println("|" + c.getNum() + "." +"\t"+ c.getName() +" - " + c.getContents() + " " + c.getDate() + "");
 		}
+		System.out.println("------------------------------------------------------------------------------------");
 	}
 	//댓글 입력
 	public void commentsList() {

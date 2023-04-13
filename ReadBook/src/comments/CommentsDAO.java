@@ -24,9 +24,10 @@ public class CommentsDAO extends DAO{
 		try {
 			conn();
 			
-			String sql = "SELECT * FROM comments";
+			String sql = "SELECT * FROM comments where board_number = ? ORDER BY num";
 			
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, BoardService.currentBoard.getNumber());
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				commentsDto = new CommentsDTO();
@@ -50,11 +51,12 @@ public class CommentsDAO extends DAO{
 		try {
 			conn();
 			
-			String sql = "Insert into comments values (?,NVL((SELECT max(num) FROM comments)+1,1),?,?,sysdate)";
+			String sql = "Insert into comments values (?,NVL((SELECT max(num) FROM comments WHERE board_number = ?)+1,1),?,?,sysdate)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1,BoardService.currentBoard.getNumber());
-			pstmt.setString(2, ReaderService.readerInfo.getName());
-			pstmt.setString(3, content);
+			pstmt.setInt(2, BoardService.currentBoard.getNumber());
+			pstmt.setString(3, ReaderService.readerInfo.getName());
+			pstmt.setString(4, content);
 			
 			result = pstmt.executeUpdate();
 			

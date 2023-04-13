@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import readers.ReaderDAO;
 import readers.ReaderService;
+import sun.jvm.hotspot.debugger.bsd.amd64.BsdAMD64CFrame;
 
 public class BoardService {
 	public static BoardDTO currentBoard = null;
@@ -24,13 +25,13 @@ public class BoardService {
 		int num = Integer.parseInt(sc.next());
 		BoardDTO list = BoardDAO.getInstance().getBoard(num);
 		BoardService.currentBoard = list;
-		System.out.println("---------------------------------------");
-		System.out.printf("글 번호 %d %s %s\n",list.getNumber(),list.getTitle(), list.getDate());
+		System.out.println("------------------------------------------------------------------------------------");
+		System.out.printf("글 번호 [%d] %s %s\n",list.getNumber(),list.getTitle(), list.getDate());
 		System.out.printf("작성자 : %s\n", list.getName());
-		System.out.println("--------------------------------------");
+		System.out.println("------------------------------------------------------------------------------------");
 		System.out.printf("%s\n", list.getContent());
 		System.out.println();
-		System.out.println("--------------------------------------");
+		System.out.println("------------------------------------------------------------------------------------");
 		}else {
 			System.out.println("---------------------------------------");
 			System.out.printf("글 번호 %d %s %s\n",BoardService.currentBoard.getNumber(),BoardService.currentBoard.getTitle(),BoardService.currentBoard.getDate());
@@ -71,6 +72,22 @@ public class BoardService {
 			}
 		}else {
 			System.out.println("본인의 글만 지울 수 있습니다.");
+			
+		}
+	}
+	public void boardUpdate(int num) {
+		System.out.println("수정할 내용을 입력하세요");
+		System.out.println("입력>");
+		if(ReaderService.readerInfo.getGrade().equals("관리자") || BoardDAO.getInstance().getBoard(num).getName().equals(ReaderService.readerInfo.getName())) {
+		int result = BoardDAO.getInstance().boardUpdate(num);
+		
+			if(result > 0) {
+				System.out.println("수정 완료");
+			}else {
+				System.out.println("수정 실패");
+			}
+		}else {
+			System.out.println("본인의 글만 수정할 수 있습니다.");
 			
 		}
 	}
