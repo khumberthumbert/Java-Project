@@ -84,7 +84,7 @@ public class CommentsDAO extends DAO{
 				commentsDto.setDate(rs.getDate("board_date"));
 			}
 		}catch (Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}finally {
 			disconn();
 		} return commentsDto;

@@ -77,26 +77,24 @@ public class BoardDAO extends DAO {
 			pstmt.setString(1, d.getTitle());
 			pstmt.setString(2, d.getContent());
 			pstmt.setString(3, ReaderService.readerInfo.getName());
-			
 			result = pstmt.executeUpdate();
-			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			disconn();
 		}return result;
 	}
-	public int boardUpdate(int number) {
+	public int boardUpdate(String content) {
 		int result = 0;
 		try {
 			conn();
 			
-			String sql = "Update board set content where board_number = ?";
+			String sql = "Update board set content =? where board_number = ?";
 			
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, number);
-			//pstmt.setInt(2, number);
-			pstmt.executeUpdate();
+			pstmt.setString(1, content);
+			pstmt.setInt(2, BoardService.currentBoard.getNumber());
+			result = pstmt.executeUpdate();
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}finally {

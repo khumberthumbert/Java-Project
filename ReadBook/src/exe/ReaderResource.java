@@ -18,6 +18,8 @@ public class ReaderResource {
 		exe();
 	}
 	private void exe() {
+		boolean run1 = true;
+		while(run1) {
 		boolean run = true;
 		String menu = "";
 		while(run) {
@@ -26,17 +28,23 @@ public class ReaderResource {
 			menu = sc.nextLine();
 			if(menu.equals("1")) {
 				rs.login();
+				break;
 			}else if(menu.equals("2")){
 				rs.readerAdd();
 				rs.login();
+				break;
 			}
 			else if(menu.equals("99")) {
 				System.out.println("종료");
+				run =false;
+				run1 = false;
 				break;
 			}else {
 				System.out.println("정확한 번호를 입력하세요");
-			}run = false;
-				while(true) {
+			}
+		}
+		if(ReaderService.readerInfo != null) {
+			while(true) {
 				if(ReaderService.readerInfo.getGrade().equals("관리자")) {
 				System.out.println("1. 회원 조회 | 2. 정보 수정 | 3. 회원등록 | 4. 회원탈퇴 | 5. 내 정보보기 | 6. 게시판 보기 | 99. 로그 아웃");
 				System.out.println("메뉴>");
@@ -76,12 +84,13 @@ public class ReaderResource {
 						break;
 					}else {
 						System.out.println("정확한 번호를 입력하세요");
-						
 				}
-			
 			}
 		}
+	}else {
+		
 	}
+		}
 	}
 	private void boardScreen() {
 		while(true) {
@@ -101,7 +110,6 @@ public class ReaderResource {
 			}
 		}
 	}
-	
 	private void deepBoardScreen() {
 		
 			while(true) {
@@ -115,7 +123,7 @@ public class ReaderResource {
 				}else if(no.equals("2")) {
 					cs.commentsDelete();
 				}else if(no.equals("3")) {
-					//bs.boardUpdate();
+					bs.boardUpdate();
 				}else if(no.equals("99")) {
 					BoardService.currentBoard =null;
 					break;

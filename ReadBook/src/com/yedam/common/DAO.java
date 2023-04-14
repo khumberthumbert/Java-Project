@@ -1,10 +1,12 @@
 package com.yedam.common;
 
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class DAO {
 	//DAO -> Data Access Object
@@ -27,6 +29,7 @@ public class DAO {
 	protected Statement stmt = null;
 	
 	//DB 접속 정보
+	Properties pro = new Properties();
 	String driver = "oracle.jdbc.driver.OracleDriver"; //연결할 때 어떠한 드라이버를 활용해서 연결하겠는가?
 	
 	String url = "jdbc:oracle:thin:@localhost:1521:xe";//@뒤부터 중요한 내용.
@@ -68,5 +71,18 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-}
+	//DB접속 정보 호출 메소드
+//	private void getProperties() {
+//		try {
+//			FileReader resource = new FileReader("db.propreties");
+//			pro.load(resource);
+//			
+//			driver = pro.getProperty("diver");
+//			url = pro.getProperty("url");
+//			id = pro.getProperty("id");
+//			pw = pro.getProperty("pw");
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+	}
 

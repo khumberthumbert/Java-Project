@@ -74,13 +74,18 @@ public class BoardService {
 			
 		}
 	}
-	public void boardUpdate(int num) {
-		System.out.println("수정할 내용을 입력하세요");
-		System.out.println("입력>");
-		if(ReaderService.readerInfo.getGrade().equals("관리자") || BoardDAO.getInstance().getBoard(num).getName().equals(ReaderService.readerInfo.getName())) {
-		int result = BoardDAO.getInstance().boardUpdate(num);
+	public void boardUpdate() {
+		String str = sc.nextLine();
+		System.out.printf(str);
+		if(ReaderService.readerInfo.getGrade().equals("관리자") || BoardDAO.getInstance().getBoard(BoardService.currentBoard.getNumber()).getName().equals(ReaderService.readerInfo.getName())) {
+			System.out.println("수정할 내용을 입력하세요");
+			System.out.println("입력 >");
+			String content = sc.nextLine();
+		int result = BoardDAO.getInstance().boardUpdate(content);
 		
 			if(result > 0) {
+				BoardDTO b = BoardDAO.getInstance().getBoard(BoardService.currentBoard.getNumber());
+				BoardService.currentBoard = b;
 				System.out.println("수정 완료");
 			}else {
 				System.out.println("수정 실패");

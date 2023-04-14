@@ -59,14 +59,12 @@ public class ReaderService {
 		String pw = sc.nextLine();
 		System.out.println("닉네임을 입력하세요>");
 		String name = sc.nextLine();
-//		System.out.println("등급을 지정해주세요.");
-//		String grade = sc.nextLine();
+
 		
 		ReaderDTO reader = new ReaderDTO();
 		reader.setId(id);
 		reader.setPw(pw);
 		reader.setName(name);
-		//reader.setGrade(grade);
 		
 		int result = ReaderDAO.getInstance().readerAdd(reader);
 		if(result >0) {
